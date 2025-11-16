@@ -68,7 +68,7 @@ const UMLView: React.FC = () => {
                 </SubSection>
 
                 <SubSection title="UML: Class Diagram">
-                    <p className="text-secondary-text mb-4">This diagram shows the static structure of the system, including its classes, attributes, methods, and the relationships between them.</p>
+                    <p className="text-secondary-text mb-4">This shows the static structure of the system, including its classes, attributes, methods, and the relationships between them.</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <UMLClass name="CryptocurrencySystem" attributes={["conditions: Condition[]"]} methods={["verifyData", "awardCurrency", "addNewBlock"]} />
                         <UMLClass name="UserDevice" attributes={["deviceId: string"]} methods={["receiveTask", "generateData", "transmitData"]} />
@@ -83,8 +83,10 @@ const UMLView: React.FC = () => {
                     </IncongruencyNote>
                 </SubSection>
 
-                <SubSection title="UML: Sequence Diagram">
-                    <p className="text-secondary-text mb-4">This diagram illustrates the interactions between objects in a time-ordered sequence for a single "Earn Cryptocurrency" use case.</p>
+                <SubSection title="UML: Sequence Diagrams">
+                    <p className="text-secondary-text mb-4">These diagrams illustrate the interactions between objects in a time-ordered sequence for a single "Earn Cryptocurrency" use case. Two versions are shown due to an incongruency in the patent.</p>
+                    
+                    <h4 className="text-xl font-semibold text-primary-text mb-2 mt-4">Primary Sequence (based on FIG. 1)</h4>
                     <div className="font-mono text-sm text-secondary-text space-y-2 bg-base-bg p-4 border border-border-color rounded-lg overflow-x-auto">
                         <p>TaskServer --[1: provideTask()]--&gt; UserDevice</p>
                         <p>UserDevice --[2: (User Performs Task)]--&gt; User</p>
@@ -98,8 +100,24 @@ const UMLView: React.FC = () => {
                         <p className="text-red-400 ml-4">--[ELSE invalid]--&gt;</p>
                         <p className="ml-4">CryptocurrencySystem --[8: (Process Ends/Fails)]--&gt; Self</p>
                     </div>
+
+                    <h4 className="text-xl font-semibold text-primary-text mb-2 mt-8">Alternative Sequence (based on [0023])</h4>
+                     <div className="font-mono text-sm text-secondary-text space-y-2 bg-base-bg p-4 border border-border-color rounded-lg overflow-x-auto">
+                        <p>CryptocurrencySystem --[1: provideTask()]--&gt; UserDevice</p>
+                        <p>UserDevice --[2: (User Performs Task)]--&gt; User</p>
+                        <p>Sensor --[3: senseBodyActivity()]--&gt; User</p>
+                        <p>UserDevice --[4: generateBodyActivityData()]--&gt; Self</p>
+                        <p>UserDevice --[5: transmitData(data)]--&gt; CryptocurrencySystem</p>
+                        <p>CryptocurrencySystem --[6: verifyData(data)]--&gt; Self</p>
+                        <p className="text-green-400 ml-4">--[IF valid]--&gt;</p>
+                        <p className="ml-4">CryptocurrencySystem --[7a: awardCurrency(user)]--&gt; Self</p>
+                        <p className="ml-4">CryptocurrencySystem --[7b: addNewBlock(transaction)]--&gt; Blockchain</p>
+                        <p className="text-red-400 ml-4">--[ELSE invalid]--&gt;</p>
+                        <p className="ml-4">CryptocurrencySystem --[8: (Process Ends/Fails)]--&gt; Self</p>
+                    </div>
+
                     <IncongruencyNote>
-                        Paragraph [0023] states, "Alternatively, cryptocurrency system 150 may provide one or more tasks to user device 130." This contradicts the primary flow where the `TaskServer` is the task originator. This suggests an alternative sequence where the `CryptocurrencySystem` initiates the process, collapsing the roles of Task Server and Crypto System. The diagram above depicts the primary sequence shown in FIG. 1.
+                        Paragraph [0023] states, "Alternatively, cryptocurrency system 150 may provide one or more tasks to user device 130." This contradicts the primary flow where the `TaskServer` is the task originator. This suggests an alternative sequence where the `CryptocurrencySystem` initiates the process, collapsing the roles of Task Server and Crypto System. The two diagrams above depict both possibilities.
                     </IncongruencyNote>
                 </SubSection>
             </Section>

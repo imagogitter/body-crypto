@@ -1,0 +1,5 @@
+{
+  "name": "Patent Visualizer: Cryptocurrency & Body Activity",
+  "description": "An interactive web application that provides meticulous diagrams and documentation for the system described in patent WO 2020/060606 A1: 'Cryptocurrency System Using Body Activity Data'. The app breaks down the architecture, process flows, and key concepts, while also highlighting and explaining potential incongruencies within the patent's claims.",
+  "requestFramePermissions": []
+}
